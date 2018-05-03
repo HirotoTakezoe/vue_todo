@@ -8,8 +8,13 @@
       <p>task: {{ newTodo }}</p>
     </form>
     <div class="task-list">
-      <label class="task-list__item" v-for="todo in todos">
-        <input type="checkbox" v-model="todo.done"><button>EDIT</button>{{ todo.text }}
+      <label class="task-list__item"
+             v-for="todo in todos"
+             v-bind:class="{ 'task-list__item--checked': todo.done }">
+        <input type="checkbox" v-model="todo.done">
+        <input type="checkbox" v-model="todo.editing">
+        <input v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
+        <span v-else>{{ todo.text }}</span>
       </label>
     </div>
   </div>
@@ -22,10 +27,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       todos: [
-        { text: 'vue-router', done: false },
-        { text: 'vuex', done: false },
-        { text: 'vue-loader', done: false },
-        { text: 'awesome-vue', done: true }
+        { text: 'vue-router', done: false, editing: false },
+        { text: 'vuex', done: false, editing: false },
+        { text: 'vue-loader', done: false, editing: false },
+        { text: 'awesome-vue', done: true, editing: false }
       ],
       newTodo: ''
     }
@@ -73,9 +78,11 @@ export default {
   @include flex-vender;
   flex-direction: column;
   align-items: center;
+
   &__item {
     width: 270px;
     text-align: left;
+
     $element: #{&};
     &--checked {
       @extend #{$element};
