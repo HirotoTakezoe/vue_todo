@@ -2,14 +2,14 @@
   <div class="todo">
     {{ msg }}
     <form>
-      <button>ADD TASK</button>
-      <button>DELETE FINISHED TASKS</button>
+      <button @click="addTodo()">ADD TASK</button>
+      <button @click="removeTodo()">DELETE FINISHED TASKS</button>
       <p>input: <input type="text" v-model="newTodo"></p>
       <p>task: {{ newTodo }}</p>
     </form>
     <div class="task-list">
       <label class="task-list__item" v-for="todo in todos">
-        <input type="checkbox"><button>EDIT</button>{{ todo.text }}
+        <input type="checkbox" v-model="todo.done"><button>EDIT</button>{{ todo.text }}
       </label>
     </div>
   </div>
@@ -22,12 +22,39 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       todos: [
-        {text : 'vue-router', done: false},
-        {text : 'vuex', done:false},
-        {text : 'vue-loader', done:false},
-        {text : 'awesome-vue', done:true},
+        { text: 'vue-router', done: false },
+        { text: 'vuex', done: false },
+        { text: 'vue-loader', done: false },
+        { text: 'awesome-vue', done: true }
       ],
-      newTodo: ""
+      newTodo: ''
+    }
+  },
+  methods: {
+    addTodo (event) {
+      // thisでdata()にアクセスできる
+      let text = this.newTodo && this.newTodo.trim()
+      // 空だった場合は追加しない
+      if (!text) {
+        return
+      }
+      // textの値をtodoに追加
+      this.todos.push({
+        text: text,
+        done: false
+      })
+      // inputの中身初期化
+      this.newTodo = ''
+    },
+    removeTodo (event) {
+      // checkされている要素を下から探索して削除していく
+      console.log(this.todos.length)
+      for (let i = this.todos.length - 1; i >= 0; i--) {
+        if (this.todos[i].done) {
+          // i番目のtodosを削除
+          this.todos.splice(i, 1)
+        }
+      }
     }
   }
 }
