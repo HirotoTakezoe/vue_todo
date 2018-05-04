@@ -17,12 +17,19 @@
         <span v-else>{{ todo.text }}</span>
       </label>
     </div>
+  <Button :message="msg"/>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Button from './Button'
+
 export default {
   name: 'Todo',
+  components: {
+    Button
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <h1>Todo Management</h1>
+    <hoge></hoge>
     <hr>
     <router-view/>
   </div>

@@ -17,7 +17,7 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 10%;
+  /* font-size: 10%; */
   color: brown;
 }
 </style>
