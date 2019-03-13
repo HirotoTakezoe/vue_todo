@@ -1,6 +1,7 @@
 <template>
   <div class="hoge">
     <h1>{{ msg }}</h1>
+    <p>gitpod</p>
   </div>
 </template>
 
